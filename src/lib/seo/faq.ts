@@ -1,9 +1,9 @@
 /** FAQ for answer engines and FAQPage JSON-LD. Plain answers, no marketing fluff. */
 export const SITE_FAQ = [
   {
-    question: "What is India Weather?",
+    question: "What is STRATEN?",
     answer:
-      "India Weather is a free weather site for India and cities worldwide. It shows current temperature, hourly and 7-day outlooks, rain, wind, UV, air quality, and short alerts based on the forecast.",
+      "STRATEN is a free weather site for India and cities worldwide. It shows current temperature, hourly and 7-day outlooks, rain, wind, UV, air quality, and short alerts based on the forecast.",
   },
   {
     question: "Which cities can I look up?",

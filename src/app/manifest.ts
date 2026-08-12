@@ -16,14 +16,14 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       {
         src: SITE.logo,
-        sizes: "any",
-        type: "image/svg+xml",
+        sizes: "500x500",
+        type: SITE.logoType,
         purpose: "any",
       },
       {
         src: SITE.logo,
-        sizes: "512x512",
-        type: "image/svg+xml",
+        sizes: "500x500",
+        type: SITE.logoType,
         purpose: "maskable",
       },
     ],

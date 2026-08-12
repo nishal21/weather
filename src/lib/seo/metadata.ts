@@ -1,20 +1,12 @@
 import type { Metadata } from "next";
-import { SITE, absoluteUrl } from "./site";
+import { SITE } from "./site";
 import type { LocationRef } from "@/lib/weather/types";
 import { hrefForLocation } from "@/lib/geo/location-url";
+import { OG_IMAGE } from "./bot-shell";
 
 /** Keep social cards under ~125 characters so mobile previews do not cut mid-sentence. */
 const SOCIAL_DESCRIPTION =
   "Live weather for India and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
-
-const OG_IMAGE = {
-  // New path so CDNs / LinkedIn do not keep the old 1024x535 /og.jpg.
-  url: absoluteUrl("/opengraph.jpg"),
-  width: 1200,
-  height: 630,
-  alt: `${SITE.name}: live weather for India and worldwide cities`,
-  type: "image/jpeg",
-} as const;
 
 const defaultOg = {
   title: `${SITE.name} | ${SITE.tagline}`,
@@ -78,9 +70,12 @@ export const rootMetadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [{ url: SITE.logo, type: "image/svg+xml" }],
+    icon: [
+      { url: SITE.logo, type: SITE.logoType, sizes: "500x500" },
+      { url: "/favicon.ico", sizes: "48x48" },
+    ],
     shortcut: SITE.logo,
-    apple: SITE.logo,
+    apple: [{ url: SITE.appleTouchIcon, sizes: "180x180", type: "image/png" }],
   },
   openGraph: openGraphBase({ url: "/" }),
   twitter: twitterBase(),

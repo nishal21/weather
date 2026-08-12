@@ -2,8 +2,8 @@
 import { publicEnv } from "@/lib/env/public";
 
 export const SITE = {
-  name: "India Weather",
-  shortName: "Weather",
+  name: "STRATEN",
+  shortName: "STRATEN",
   tagline: "Weather for India and beyond",
   description:
     "Live weather for cities in India and around the world. Hourly and 7-day forecasts, rain, wind, UV, air quality, and short alerts you can use.",
@@ -18,9 +18,13 @@ export const SITE = {
   licenseUrl: "https://www.mozilla.org/MPL/2.0/",
   twitter: "@Etainment2",
   themeColor: "#070b12",
-  /** App mark. Query bumps when the file changes so CDN/browser drop stale /logo.svg. */
-  logo: "/logo.svg?v=2",
+  /** Brand mark (PNG). Bump ?v= when the file changes so CDN drops stale bytes. */
+  logo: "/logo.png?v=1",
+  logoType: "image/png",
+  appleTouchIcon: "/apple-touch-icon.png?v=1",
   keywords: [
+    "STRATEN",
+    "STRATEN weather",
     "India weather",
     "weather forecast India",
     "live weather",

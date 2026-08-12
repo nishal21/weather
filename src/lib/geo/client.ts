@@ -9,7 +9,8 @@ import {
   type LocationQueryParams,
   type PlaceFromCode,
 } from "./location-url";
-import { LOCALE_STORAGE, resolveLanguage } from "@/lib/i18n/locale";
+import { LOCALE_STORAGE, LOCALE_STORAGE_LEGACY, resolveLanguage } from "@/lib/i18n/locale";
+import { getLocalStorageMigrating } from "@/lib/storage/migrate-local";
 import {
   persistLastPlace,
   readLastPlaceFromStorage,
@@ -40,7 +41,8 @@ export {
   syncLastPlaceCookieFromStorage,
 } from "./last-place";
 
-const DENIED_KEY = "india-weather:geo-denied";
+const DENIED_KEY = "straten:geo-denied";
+const DENIED_KEY_LEGACY = "india-weather:geo-denied";
 
 /** @deprecated use persistLastPlace */
 export function saveLastPlace(loc: LocationRef) {
@@ -54,8 +56,13 @@ export function readLastPlace(): LocationRef | null {
 
 export function setGeoDenied(denied: boolean) {
   try {
-    if (denied) localStorage.setItem(DENIED_KEY, "1");
-    else localStorage.removeItem(DENIED_KEY);
+    if (denied) {
+      localStorage.setItem(DENIED_KEY, "1");
+      localStorage.removeItem(DENIED_KEY_LEGACY);
+    } else {
+      localStorage.removeItem(DENIED_KEY);
+      localStorage.removeItem(DENIED_KEY_LEGACY);
+    }
   } catch {
     /* ignore */
   }
@@ -63,7 +70,7 @@ export function setGeoDenied(denied: boolean) {
 
 export function wasGeoDenied(): boolean {
   try {
-    return localStorage.getItem(DENIED_KEY) === "1";
+    return getLocalStorageMigrating(DENIED_KEY, DENIED_KEY_LEGACY) === "1";
   } catch {
     return false;
   }
@@ -102,7 +109,9 @@ export async function locateUserPlace(): Promise<LocationRef> {
   const lon = roundCoord(longitude);
   let lang = "en";
   try {
-    lang = resolveLanguage(localStorage.getItem(LOCALE_STORAGE));
+    lang = resolveLanguage(
+      getLocalStorageMigrating(LOCALE_STORAGE, LOCALE_STORAGE_LEGACY),
+    );
   } catch {
     /* ignore */
   }

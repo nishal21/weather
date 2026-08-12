@@ -72,7 +72,7 @@ export function webApplicationJsonLd() {
       "UI in many languages",
       "Saved places on device",
     ],
-    screenshot: absoluteUrl("/opengraph.jpg"),
+    screenshot: absoluteUrl("/og-share.jpg"),
   };
 }
 

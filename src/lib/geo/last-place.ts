@@ -1,6 +1,8 @@
 import type { LocationRef } from "@/lib/weather/types";
+import { getLocalStorageMigrating } from "@/lib/storage/migrate-local";
 
-export const LAST_PLACE_STORAGE_KEY = "india-weather:last-place";
+export const LAST_PLACE_STORAGE_KEY = "straten:last-place";
+export const LAST_PLACE_STORAGE_KEY_LEGACY = "india-weather:last-place";
 export const LAST_PLACE_COOKIE = "weather_last_place";
 const COOKIE_MAX_AGE_SEC = 60 * 60 * 24 * 365;
 
@@ -43,6 +45,7 @@ export function persistLastPlace(loc: LocationRef): void {
   const payload = serializeLastPlace(loc);
   try {
     localStorage.setItem(LAST_PLACE_STORAGE_KEY, payload);
+    localStorage.removeItem(LAST_PLACE_STORAGE_KEY_LEGACY);
   } catch {
     /* ignore */
   }
@@ -58,7 +61,9 @@ export function persistLastPlace(loc: LocationRef): void {
 export function readLastPlaceFromStorage(): LocationRef | null {
   if (typeof window === "undefined") return null;
   try {
-    return parseLastPlaceJson(localStorage.getItem(LAST_PLACE_STORAGE_KEY));
+    return parseLastPlaceJson(
+      getLocalStorageMigrating(LAST_PLACE_STORAGE_KEY, LAST_PLACE_STORAGE_KEY_LEGACY),
+    );
   } catch {
     return null;
   }

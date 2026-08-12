@@ -1,7 +1,9 @@
 import type { LocationRef } from "@/lib/weather/types";
+import { getLocalStorageMigrating } from "@/lib/storage/migrate-local";
 import { roundCoord } from "./location-url";
 
-const STORAGE_KEY = "india-weather:saved-places";
+const STORAGE_KEY = "straten:saved-places";
+const STORAGE_KEY_LEGACY = "india-weather:saved-places";
 const MAX_SAVED = 8;
 
 export function placeStorageKey(loc: LocationRef): string {
@@ -11,7 +13,7 @@ export function placeStorageKey(loc: LocationRef): string {
 export function readSavedPlaces(): LocationRef[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = getLocalStorageMigrating(STORAGE_KEY, STORAGE_KEY_LEGACY);
     if (!raw) return [];
     const parsed = JSON.parse(raw) as LocationRef[];
     if (!Array.isArray(parsed)) return [];
@@ -29,6 +31,7 @@ export function readSavedPlaces(): LocationRef[] {
 function writeSavedPlaces(places: LocationRef[]) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(places.slice(0, MAX_SAVED)));
+    localStorage.removeItem(STORAGE_KEY_LEGACY);
     dispatchSavedPlacesChanged();
   } catch {
     /* ignore */

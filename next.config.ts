@@ -45,6 +45,22 @@ const nextConfig: NextConfig = {
         headers: shareImageHeaders,
       },
       {
+        source: "/og-share.jpg",
+        headers: shareImageHeaders,
+      },
+      {
+        source: "/logo.png",
+        headers: shareImageHeaders,
+      },
+      {
+        source: "/apple-touch-icon.png",
+        headers: shareImageHeaders,
+      },
+      {
+        source: "/favicon.ico",
+        headers: shareImageHeaders,
+      },
+      {
         source: "/logo.svg",
         headers: shareImageHeaders,
       },

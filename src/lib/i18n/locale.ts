@@ -1,8 +1,10 @@
 import { LANGUAGE_CODES } from "./language-catalog";
 
 export const LOCALE_COOKIE = "weather_lang";
-export const LOCALE_STORAGE = "india-weather:locale";
-export const LOCALE_EXPLICIT_STORAGE = "india-weather:locale-explicit";
+export const LOCALE_STORAGE = "straten:locale";
+export const LOCALE_STORAGE_LEGACY = "india-weather:locale";
+export const LOCALE_EXPLICIT_STORAGE = "straten:locale-explicit";
+export const LOCALE_EXPLICIT_STORAGE_LEGACY = "india-weather:locale-explicit";
 export const LOCALE_EXPLICIT_COOKIE = "weather_lang_explicit";
 /** Stored preference meaning “follow device / Accept-Language”. */
 export const LOCALE_AUTO = "auto";

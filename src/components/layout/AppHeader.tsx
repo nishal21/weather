@@ -36,7 +36,7 @@ export function AppHeader({ location, nearYou }: Props) {
         <div className="flex items-center justify-between gap-3">
           <div className="min-w-0">
             <p className="font-display text-lg font-semibold tracking-tight text-white">
-              India Weather
+              STRATEN
             </p>
             <p className="truncate text-xs text-zinc-400">
               {nearYou

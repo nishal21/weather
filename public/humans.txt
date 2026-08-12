@@ -4,7 +4,7 @@ GitHub: https://github.com/nishal21
 Repository: https://github.com/nishal21/weather
 
 /* SITE */
-Name: India Weather
+Name: STRATEN
 Purpose: Live weather for India and worldwide cities
 Stack: Next.js, React, TypeScript
 License: MPL-2.0

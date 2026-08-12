@@ -34,6 +34,30 @@
     Cache-Control = "public, max-age=604800, must-revalidate"
 
 [[headers]]
+  for = "/og-share.jpg"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/logo.png"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/favicon.ico"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
   for = "/logo.svg"
   [headers.values]
     Cross-Origin-Resource-Policy = "cross-origin"

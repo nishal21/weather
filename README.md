@@ -1,4 +1,4 @@
-# India Weather
+# STRATEN
 
 Repository: [github.com/nishal21/weather](https://github.com/nishal21/weather) · License: MPL-2.0
 

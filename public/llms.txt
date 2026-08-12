@@ -1,10 +1,10 @@
-# India Weather
+# STRATEN
 
-India Weather shows live weather for India and cities worldwide: temperature, hourly and 7-day outlook, rain, wind, UV, air quality, and short forecast-based alerts.
+STRATEN shows live weather for India and cities worldwide: temperature, hourly and 7-day outlook, rain, wind, UV, air quality, and short forecast-based alerts.
 
 ## Project
 
-- Name: India Weather
+- Name: STRATEN
 - Maintainer: nishal21 (https://github.com/nishal21)
 - Source: https://github.com/nishal21/weather
 - License: MPL-2.0 (https://www.mozilla.org/MPL/2.0/)
@@ -43,7 +43,7 @@ Source code is MPL-2.0, copyright nishal21. Images, animations, and video may be
 
 ## FAQ
 
-Q: What is India Weather?
+Q: What is STRATEN?
 A: A free open-source weather site for India and global cities, with hourly and 7-day forecasts plus air quality.
 
 Q: Who maintains it?

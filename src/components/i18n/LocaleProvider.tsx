@@ -15,13 +15,16 @@ import {
   LOCALE_COOKIE,
   LOCALE_EXPLICIT_COOKIE,
   LOCALE_EXPLICIT_STORAGE,
+  LOCALE_EXPLICIT_STORAGE_LEGACY,
   LOCALE_STORAGE,
+  LOCALE_STORAGE_LEGACY,
   isLocaleAuto,
   languageDisplayName,
   normalizeLanguageCode,
   resolveLanguage,
   type LanguageCode,
 } from "@/lib/i18n/locale";
+import { getLocalStorageMigrating } from "@/lib/storage/migrate-local";
 import { UI_SOURCE, LOCALE_BUNDLE_VERSION, type UiKey } from "@/lib/i18n/ui-source";
 import { sanitizeTranslation } from "@/lib/i18n/translate-sanitize";
 
@@ -40,9 +43,13 @@ const LocaleContext = createContext<LocaleContextValue | null>(null);
 
 function readStoredPreference(): string {
   try {
-    const explicit = localStorage.getItem(LOCALE_EXPLICIT_STORAGE) === "1";
+    const explicit =
+      getLocalStorageMigrating(
+        LOCALE_EXPLICIT_STORAGE,
+        LOCALE_EXPLICIT_STORAGE_LEGACY,
+      ) === "1";
     if (!explicit) return LOCALE_AUTO;
-    const raw = localStorage.getItem(LOCALE_STORAGE);
+    const raw = getLocalStorageMigrating(LOCALE_STORAGE, LOCALE_STORAGE_LEGACY);
     if (!raw || isLocaleAuto(raw)) return LOCALE_AUTO;
     return normalizeLanguageCode(raw);
   } catch {
@@ -128,6 +135,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
       try {
         localStorage.setItem(LOCALE_STORAGE, stored);
         localStorage.setItem(LOCALE_EXPLICIT_STORAGE, "1");
+        localStorage.removeItem(LOCALE_STORAGE_LEGACY);
+        localStorage.removeItem(LOCALE_EXPLICIT_STORAGE_LEGACY);
       } catch {
         /* ignore */
       }
