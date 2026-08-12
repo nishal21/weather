@@ -208,7 +208,7 @@ export function WeatherAppScreen({
         </div>
       </section>
 
-      {/* One UI content bed — phone stack, desktop multi-column */}
+      {/* Content bed: phone stack on mobile, multi-column on desktop */}
       <div className="relative z-20 -mt-12 bg-gradient-to-b from-transparent via-[#070b12]/88 to-[#070b12] pt-12 sm:-mt-16 sm:pt-16">
         <main className="relative mx-auto w-full max-w-lg px-4 pb-10 sm:max-w-2xl sm:px-6 md:max-w-4xl md:pb-14 lg:max-w-6xl lg:px-8">
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 lg:gap-4">
@@ -238,7 +238,7 @@ export function WeatherAppScreen({
               <DailyForecastList daily={forecast7} />
             </div>
 
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 lg:self-start">
               <UvIndexMap
                 uvIndexMax={uvIndexMax}
                 hourly={hourly48}

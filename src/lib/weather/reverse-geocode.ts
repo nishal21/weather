@@ -3,6 +3,7 @@ import {
   bigDataCloudLanguage,
   type AppLocale,
 } from "@/lib/i18n/locale";
+import { serverEnv } from "@/lib/env/server";
 
 interface BigDataCloudReverse {
   city?: string;
@@ -20,7 +21,15 @@ export async function reverseGeocode(
   locale: AppLocale = "en",
 ): Promise<LocationRef> {
   const lang = bigDataCloudLanguage(locale);
-  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=${lang}`;
+  const params = new URLSearchParams({
+    latitude: String(lat),
+    longitude: String(lon),
+    localityLanguage: lang,
+  });
+  if (serverEnv.bigDataCloudApiKey) {
+    params.set("key", serverEnv.bigDataCloudApiKey);
+  }
+  const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?${params.toString()}`;
   const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) {
     throw new Error(`Reverse geocode HTTP ${res.status}`);

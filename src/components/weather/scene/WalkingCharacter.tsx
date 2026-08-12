@@ -11,8 +11,8 @@ type Props = {
 };
 
 /**
- * Mid-layer HUMAN plate — walks in, then loops idle (loopStartTime idea).
- * Outfit swaps by temp band; not Samsung IP.
+ * Mid-layer human character that walks in, then loops idle.
+ * Outfit swaps by temperature band and weather context.
  */
 export function WalkingCharacter({
   condition,

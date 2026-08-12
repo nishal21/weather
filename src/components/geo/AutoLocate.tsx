@@ -10,6 +10,7 @@ import {
   readLastPlace,
   saveLastPlace,
   setGeoDenied,
+  syncLastPlaceCookieFromStorage,
   wasGeoDenied,
 } from "@/lib/geo/client";
 import {
@@ -116,6 +117,14 @@ export function AutoLocate({ variant = "floating" }: Props) {
     }
 
     (async () => {
+      syncLastPlaceCookieFromStorage();
+
+      const cached = readLastPlace();
+      if (cached) {
+        applyPlace("saved");
+        return;
+      }
+
       const permission = await queryGeoPermission();
 
       if (permission === "granted") {
@@ -124,11 +133,6 @@ export function AutoLocate({ variant = "floating" }: Props) {
       }
 
       if (permission === "denied" || wasGeoDenied()) {
-        const saved = readLastPlace();
-        if (saved) {
-          applyPlace("saved");
-          return;
-        }
         setStatus("denied");
         setMessage(t("auto.searchBelow"));
         return;

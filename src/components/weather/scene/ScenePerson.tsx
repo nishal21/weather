@@ -8,8 +8,8 @@ type Props = {
 };
 
 /**
- * Small mid-horizon silhouette (One UI composition) — walks in, then idles.
- * Not a giant blocky card figure.
+ * Small mid-horizon silhouette that walks in, then idles.
+ * Kept lightweight so it does not dominate the card content.
  */
 export function ScenePerson({ condition, isDay = true }: Props) {
   const rainy =
@@ -65,7 +65,7 @@ export function ScenePerson({ condition, isDay = true }: Props) {
           />
         </g>
 
-        {/* flowing cloak / coat (Samsung haze/night vibe) */}
+        {/* flowing cloak or coat for haze/night conditions */}
         {cloak ? (
           <path
             className="cloak-sway"

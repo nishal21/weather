@@ -23,7 +23,7 @@ export function lottieSrcForCondition(
   const file = (() => {
     switch (condition) {
       case "clear":
-        // WMO 1 mainly clear → mostly_clear / mostly_sunny (Samsung)
+        // WMO 1 mainly clear maps to mostly_clear or mostly_sunny
         if (wmoCode === 1) {
           return isDay ? "mostly_sunny.json" : "mostly_clear.json";
         }
@@ -58,7 +58,7 @@ export function lottieSrcForCondition(
   return `/lottie/${folder}/${file}`;
 }
 
-/** Full-sky Samsung One UI cloud Lottie (APK dark/white packs) — not the hero icon. */
+/** Full-sky cloud Lottie from APK dark/white packs, separate from hero icon. */
 export function skyCloudLottieSrc(
   condition: WeatherCondition,
   isDay = true,

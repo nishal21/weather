@@ -10,6 +10,10 @@ import {
   type PlaceFromCode,
 } from "./location-url";
 import { LOCALE_STORAGE, resolveLanguage } from "@/lib/i18n/locale";
+import {
+  persistLastPlace,
+  readLastPlaceFromStorage,
+} from "./last-place";
 
 export {
   hrefForLocation,
@@ -30,33 +34,22 @@ export {
   isPlaceSaved,
 } from "./saved-places";
 
-const STORAGE_KEY = "india-weather:last-place";
+export {
+  persistLastPlace,
+  readLastPlaceFromStorage,
+  syncLastPlaceCookieFromStorage,
+} from "./last-place";
+
 const DENIED_KEY = "india-weather:geo-denied";
 
+/** @deprecated use persistLastPlace */
 export function saveLastPlace(loc: LocationRef) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(loc));
-  } catch {
-    /* ignore */
-  }
+  persistLastPlace(loc);
 }
 
+/** @deprecated use readLastPlaceFromStorage */
 export function readLastPlace(): LocationRef | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as LocationRef;
-    if (
-      typeof parsed?.lat === "number" &&
-      typeof parsed?.lon === "number" &&
-      typeof parsed?.name === "string"
-    ) {
-      return parsed;
-    }
-  } catch {
-    /* ignore */
-  }
-  return null;
+  return readLastPlaceFromStorage();
 }
 
 export function setGeoDenied(denied: boolean) {

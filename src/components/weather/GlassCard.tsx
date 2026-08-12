@@ -8,7 +8,7 @@ type Props = {
   style?: CSSProperties;
 };
 
-/** Shared One UI glass panel — one radius, one sky-tinted surface. */
+/** Shared glass panel with one radius and sky-tinted surface. */
 export function GlassCard({
   children,
   className = "",

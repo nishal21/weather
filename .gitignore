@@ -54,7 +54,7 @@ venv/
 __pycache__/
 *.pyc
 
-# Samsung Weather APK study (do not commit proprietary extracts)
+# APK study assets (do not commit proprietary extracts)
 *.apk
 apk-study/
 

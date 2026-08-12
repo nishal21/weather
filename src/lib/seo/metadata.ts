@@ -25,8 +25,8 @@ export const rootMetadata: Metadata = {
   },
   description: SITE.description,
   applicationName: SITE.name,
-  authors: [{ name: SITE.name }],
-  creator: SITE.name,
+  authors: [{ name: SITE.maintainer, url: SITE.maintainerUrl }],
+  creator: SITE.maintainer,
   publisher: SITE.name,
   category: "weather",
   keywords: [...SITE.keywords],
@@ -77,6 +77,8 @@ export const rootMetadata: Metadata = {
   other: {
     "geo.region": "IN",
     "geo.placename": "India",
+    "code-repository": SITE.repository,
+    license: SITE.license,
   },
 };
 

@@ -12,6 +12,12 @@ export function organizationJsonLd() {
     url: SITE.url,
     logo: absoluteUrl("/logo.png"),
     description: SITE.description,
+    founder: {
+      "@type": "Person",
+      name: SITE.maintainer,
+      url: SITE.maintainerUrl,
+    },
+    sameAs: [SITE.repository, SITE.maintainerUrl],
     areaServed: [
       { "@type": "Country", name: "India" },
       { "@type": "Place", name: "World" },
@@ -49,6 +55,14 @@ export function webApplicationJsonLd() {
     operatingSystem: "Web",
     offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
     description: SITE.description,
+    author: {
+      "@type": "Person",
+      name: SITE.maintainer,
+      url: SITE.maintainerUrl,
+    },
+    codeRepository: SITE.repository,
+    license: SITE.licenseUrl,
+    isAccessibleForFree: true,
     featureList: [
       "Hourly and 7-day forecast",
       "Worldwide city search",

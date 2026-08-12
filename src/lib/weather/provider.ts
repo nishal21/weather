@@ -20,8 +20,10 @@ import {
 } from "@/lib/i18n/localize-snapshot";
 import { translateOnline } from "@/lib/i18n/translate-online";
 
+import { serverEnv } from "@/lib/env/server";
+
 export function getDataSource(): DataProvider {
-  const raw = (process.env.WEATHER_DATA_SOURCE ?? "open-meteo").toLowerCase();
+  const raw = serverEnv.weatherDataSource;
   if (raw === "mock" || raw === "imd" || raw === "open-meteo") return raw;
   return "open-meteo";
 }

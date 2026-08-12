@@ -150,7 +150,7 @@ export function mapOpenMeteoToSnapshot(
     uvIndexMax = Number(data.daily.uv_index_max[0].toFixed(1));
   }
 
-  // Samsung-accurate day/night: sunrise/sunset beats stale is_day flags
+  // Day/night accuracy: sunrise/sunset beats stale is_day flags
   current.isDay = resolveIsDay({
     observedAt: current.observedAt,
     apiIsDay: cur.is_day === 1,

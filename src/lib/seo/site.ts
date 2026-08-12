@@ -1,4 +1,6 @@
 /** Central site config for SEO, OpenGraph, sitemap, and AI discoverability. */
+import { publicEnv } from "@/lib/env/public";
+
 export const SITE = {
   name: "India Weather",
   shortName: "Weather",
@@ -7,10 +9,13 @@ export const SITE = {
     "Live weather for any city in India and worldwide. Hourly and 7-day forecast, rain, wind, UV, air quality, and plain-language alerts.",
   locale: "en_IN",
   country: "IN",
-  /** Set in production: NEXT_PUBLIC_SITE_URL=https://your-domain.com */
-  url:
-    process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "http://localhost:3000",
+  url: publicEnv.siteUrl,
+  repository: "https://github.com/nishal21/weather",
+  repositoryGit: "https://github.com/nishal21/weather.git",
+  maintainer: "nishal21",
+  maintainerUrl: "https://github.com/nishal21",
+  license: "MPL-2.0",
+  licenseUrl: "https://www.mozilla.org/MPL/2.0/",
   twitter: "@indiaweather",
   keywords: [
     "India weather",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { WeatherAppScreen } from "@/components/weather/WeatherAppScreen";
 import { AutoLocate } from "@/components/geo/AutoLocate";
 import { LocatingScreen } from "@/components/geo/LocatingScreen";
@@ -9,10 +10,12 @@ import { deriveAlerts } from "@/lib/weather/derive-alerts";
 import { DEFAULT_LOCATION } from "@/lib/weather/locations/india-cities";
 import {
   hasPlaceInQuery,
+  hrefForLocation,
   isNearYouQuery,
   locationRefFromQuery,
   type LocationQueryParams,
 } from "@/lib/geo/location-url";
+import { readLastPlaceCookie } from "@/lib/geo/last-place-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import {
   localizeAlertsCopy,
@@ -50,6 +53,10 @@ export default async function HomePage({ searchParams }: PageProps) {
   const hasPlace = hasPlaceInQuery(params);
 
   if (!hasPlace) {
+    const cached = await readLastPlaceCookie();
+    if (cached) {
+      redirect(hrefForLocation(cached, { from: "saved" }));
+    }
     return <LocatingScreen />;
   }
 

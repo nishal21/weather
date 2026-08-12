@@ -18,7 +18,7 @@ type Props = {
   size?: "md" | "lg";
 };
 
-/** Soft One UI–style weather glyph (no neon glow). */
+/** Soft weather glyph style with no neon glow. */
 export function WeatherSceneIcon({
   condition,
   isDay = true,

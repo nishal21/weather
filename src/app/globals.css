@@ -84,7 +84,7 @@ body.search-modal-open {
   }
 }
 
-/* One UI post-hero panel — single glass system, sky-tinted neutrals */
+/* Post-hero panel with a single glass system and sky-tinted neutrals */
 .weather-panel {
   border-radius: var(--panel-radius);
   border: 1px solid var(--panel-border);
@@ -207,7 +207,7 @@ body.search-modal-open {
   );
 }
 
-/* Hero condition icon — Samsung One UI scale (soft, upper-right) */
+/* Hero condition icon scale (soft, upper-right) */
 .hero-lottie {
   position: relative;
   z-index: 2;
@@ -436,7 +436,7 @@ body.search-modal-open {
   }
 }
 
-/* Hero type stack — Samsung One UI rhythm */
+/* Hero type stack rhythm */
 .hero-place-title {
   margin: 0;
   font-size: clamp(1.25rem, 2.8vw, 1.75rem);
@@ -719,7 +719,7 @@ body.search-modal-open {
 .scene-walker {
   height: 100%;
   width: 100%;
-  /* ~1.8s enter ≈ Samsung loopStartTime handoff */
+  /* ~1.8s enter then hand off into idle loop */
   animation: walker-enter 1.85s cubic-bezier(0.22, 1, 0.32, 1) forwards;
   will-change: transform;
 }

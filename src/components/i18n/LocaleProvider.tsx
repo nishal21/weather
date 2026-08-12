@@ -23,7 +23,7 @@ import {
   type LanguageCode,
 } from "@/lib/i18n/locale";
 import { UI_SOURCE, LOCALE_BUNDLE_VERSION, type UiKey } from "@/lib/i18n/ui-source";
-import { sanitizeTranslation } from "@/lib/i18n/translate-online";
+import { sanitizeTranslation } from "@/lib/i18n/translate-sanitize";
 
 type Strings = Record<UiKey, string>;
 

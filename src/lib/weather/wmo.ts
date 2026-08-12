@@ -3,9 +3,9 @@ import type { WeatherCondition } from "./types";
 const HEATWAVE_C = 40;
 
 /**
- * Map WMO weather codes → app conditions (Samsung One UI–aligned).
- * WMO 0 clear, 1 mainly clear → clear scene (not cloudy).
- * WMO 2 → partly cloudy.
+ * Map WMO weather codes to app conditions.
+ * WMO 0 clear, 1 mainly clear map to clear scene (not cloudy).
+ * WMO 2 maps to partly cloudy.
  */
 export function mapWmoCodeToCondition(
   code: number,

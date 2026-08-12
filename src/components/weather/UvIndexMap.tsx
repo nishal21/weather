@@ -69,10 +69,12 @@ export function UvIndexMap({ uvIndexMax, hourly, isDay = true }: Props) {
 
   const displayPeak = peak > 0 ? peak : 1;
   const nowUv = hourly[0]?.uvIndex ?? 0;
-  const cat = t(uvCategoryKey(displayPeak));
-  const accent = uvColor(displayPeak);
-  const chartMax = Math.max(displayPeak, 3);
-  const railPct = Math.min(100, (displayPeak / 13) * 100);
+  const hasNowReading = isDay && nowUv > 0.15;
+  const displayUv = hasNowReading ? nowUv : displayPeak;
+  const cat = t(uvCategoryKey(displayUv));
+  const accent = uvColor(displayUv);
+  const chartMax = Math.max(displayPeak, displayUv, 3);
+  const railPct = Math.min(100, (displayUv / 11) * 100);
 
   const bars: { time: string; uv: number }[] =
     seriesPeak > 0.15
@@ -89,7 +91,7 @@ export function UvIndexMap({ uvIndexMax, hourly, isDay = true }: Props) {
         : series.map((h) => ({ time: h.time, uv: 0 }));
 
   return (
-    <GlassCard aria-label={t("panel.uvMap")} className="card-rise h-full">
+    <GlassCard aria-label={t("panel.uvMap")} className="card-rise">
       <PanelTitle
         trailing={
           <span
@@ -109,15 +111,18 @@ export function UvIndexMap({ uvIndexMax, hourly, isDay = true }: Props) {
             className="font-display text-[2.75rem] font-semibold leading-none tracking-tight tabular-nums"
             style={{ color: accent }}
           >
-            {displayPeak.toFixed(displayPeak >= 10 ? 0 : 1)}
+            {displayUv.toFixed(displayUv >= 10 ? 0 : 1)}
           </p>
           <p className="mt-1.5 line-clamp-2 break-words text-xs text-white/50">
-            {isDay && nowUv > 0.2 ? `${t("uv.now")} ${nowUv.toFixed(1)} · ` : ""}
-            {t("uv.peakToday")}
+            {hasNowReading && displayPeak > nowUv + 0.05
+              ? `${t("uv.peakToday")} ${displayPeak.toFixed(displayPeak >= 10 ? 0 : 1)}`
+              : hasNowReading
+                ? t("uv.now")
+                : t("uv.peakToday")}
           </p>
         </div>
         <p className="max-w-[14rem] line-clamp-3 break-words pb-1 text-right text-xs leading-relaxed text-white/55">
-          {t(uvHintKey(displayPeak))}
+          {t(uvHintKey(displayUv))}
         </p>
       </div>
 
@@ -134,7 +139,7 @@ export function UvIndexMap({ uvIndexMax, hourly, isDay = true }: Props) {
           style={{ left: `${railPct}%`, background: accent }}
         />
       </div>
-      <div className="mt-1.5 flex justify-between text-[9px] text-white/35">
+      <div className="mt-1.5 grid grid-cols-5 text-center text-[9px] text-white/35">
         {UV_BANDS.map((b) => (
           <span key={b.key}>{t(b.key)}</span>
         ))}

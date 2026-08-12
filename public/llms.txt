@@ -2,9 +2,17 @@
 
 > Live weather for India and cities worldwide. Hourly and 7-day forecast, rain, wind, UV, air quality, and plain-language alerts.
 
+## Project
+
+- Name: India Weather
+- Maintainer: nishal21 (https://github.com/nishal21)
+- Source code: https://github.com/nishal21/weather
+- License: MPL-2.0 (https://www.mozilla.org/MPL/2.0/)
+- Stack: Next.js 16, React 19, TypeScript
+
 ## Summary
 
-India Weather is a mobile-first web app built in India for users everywhere. Search any city, use GPS for local weather, save places, and read forecasts in your language.
+India Weather is a mobile-first open-source weather web app. Search any city, use GPS for local weather, save places, and read forecasts in your language.
 
 ## Core features
 
@@ -19,27 +27,32 @@ India Weather is a mobile-first web app built in India for users everywhere. Sea
 
 ## Data sources
 
-- Forecast: Open-Meteo (https://open-meteo.com)
+- Forecast: Open-Meteo (https://open-meteo.com) — CC BY 4.0
 - Geocoding: Open-Meteo Geocoding API
 - Reverse geocode: BigDataCloud Client API
 - UI translation: MyMemory (free tier, cached)
 
+## Copyright
+
+- Source code: MPL-2.0, copyright India Weather contributors / nishal21
+- Media assets (images, animations, video): may belong to respective owners; see repository README
+
 ## Popular entry points
 
 - Home: /
+- Repository: https://github.com/nishal21/weather
 - Example cities: Mumbai, Delhi, Bengaluru, Chennai, Kolkata, Hyderabad, Kochi, Thiruvananthapuram
 
 ## FAQ
 
 Q: What is India Weather?
-A: A free weather web app for India and global cities with hourly/7-day forecasts and air quality.
+A: An open-source weather web app for India and global cities with hourly/7-day forecasts and air quality.
+
+Q: Who maintains it?
+A: nishal21. Source is published on GitHub under MPL-2.0.
 
 Q: Which languages are supported?
 A: English plus 70+ languages. Default follows the user's phone or browser language.
 
 Q: Are alerts official government warnings?
 A: No. Alerts are generated from forecast data for planning, not IMD official bulletins.
-
-## Contact / updates
-
-Set production URL in NEXT_PUBLIC_SITE_URL when deploying.

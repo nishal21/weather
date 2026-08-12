@@ -1,15 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { reverseGeocode } from "@/lib/weather/reverse-geocode";
-import { resolveLanguage, normalizeLanguageCode } from "@/lib/i18n/locale";
+import { resolveLanguage } from "@/lib/i18n/locale";
 import { translateOnline } from "@/lib/i18n/translate-online";
+import {
+  apiError,
+  assertApiCallerAllowed,
+  parseBoundedLatLon,
+} from "@/lib/api/guard";
 
 export async function GET(req: NextRequest) {
-  const lat = Number(req.nextUrl.searchParams.get("lat"));
-  const lon = Number(req.nextUrl.searchParams.get("lon"));
-  if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+  const blocked = assertApiCallerAllowed(req);
+  if (blocked) return blocked;
+
+  const coords = parseBoundedLatLon(
+    req.nextUrl.searchParams.get("lat"),
+    req.nextUrl.searchParams.get("lon"),
+  );
+  if (!coords) {
     return NextResponse.json({ error: "lat and lon required" }, { status: 400 });
   }
+
   const locale = resolveLanguage(req.nextUrl.searchParams.get("lang"));
+  const { lat, lon } = coords;
+
   try {
     const place = await reverseGeocode(lat, lon, locale);
     return NextResponse.json(place, {

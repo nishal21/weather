@@ -21,4 +21,5 @@ export {
 
 export { LANGUAGE_CODES, type CatalogLanguageCode } from "./language-catalog";
 export { UI_SOURCE, type UiKey } from "./ui-source";
-export { translateOnline, translateMany, sanitizeTranslation } from "./translate-online";
+export { sanitizeTranslation } from "./translate-sanitize";
+export { translateOnline, translateMany } from "./translate-online";

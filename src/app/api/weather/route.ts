@@ -1,7 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { fetchWeatherSnapshot } from "@/lib/weather/provider";
+import {
+  apiError,
+  assertApiCallerAllowed,
+} from "@/lib/api/guard";
 
 export async function GET(req: NextRequest) {
+  const blocked = assertApiCallerAllowed(req);
+  if (blocked) return blocked;
+
   const sp = req.nextUrl.searchParams;
   try {
     const snapshot = await fetchWeatherSnapshot({
@@ -26,9 +33,6 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     console.error(err);
-    return NextResponse.json(
-      { error: "Unable to load live weather. Try again in a moment." },
-      { status: 502 },
-    );
+    return apiError("Unable to load live weather. Try again in a moment.");
   }
 }

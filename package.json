@@ -1,7 +1,16 @@
 {
   "name": "india-weather",
   "version": "0.1.0",
+  "license": "MPL-2.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nishal21/weather.git"
+  },
+  "homepage": "https://github.com/nishal21/weather#readme",
+  "bugs": {
+    "url": "https://github.com/nishal21/weather/issues"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",

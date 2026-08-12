@@ -2,11 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { searchPlaces } from "@/lib/weather/geocoding";
 import { INDIA_QUICK_CITIES } from "@/lib/weather/locations/india-cities";
 import { openMeteoLanguage, resolveLanguage } from "@/lib/i18n/locale";
+import {
+  apiError,
+  assertApiCallerAllowed,
+  sanitizeSearchQuery,
+} from "@/lib/api/guard";
 
 export async function GET(req: NextRequest) {
-  const q = req.nextUrl.searchParams.get("q")?.trim() ?? "";
-  const country = req.nextUrl.searchParams.get("country") ?? "IN";
-  const scope = req.nextUrl.searchParams.get("scope") ?? "world"; // in | world
+  const blocked = assertApiCallerAllowed(req);
+  if (blocked) return blocked;
+
+  const q = sanitizeSearchQuery(req.nextUrl.searchParams.get("q"));
+  const country = (req.nextUrl.searchParams.get("country") ?? "IN").slice(0, 2);
+  const scope = req.nextUrl.searchParams.get("scope") ?? "world";
   const locale = resolveLanguage(req.nextUrl.searchParams.get("lang"));
 
   try {
@@ -28,6 +36,6 @@ export async function GET(req: NextRequest) {
     );
   } catch (err) {
     console.error(err);
-    return NextResponse.json({ error: "Search failed" }, { status: 502 });
+    return apiError("Search failed");
   }
 }
