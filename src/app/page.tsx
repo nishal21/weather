@@ -75,7 +75,7 @@ export default async function HomePage({ searchParams }: PageProps) {
           <AutoLocate />
         </Suspense>
         <div className="relative flex min-h-[100dvh] w-full items-center justify-center bg-gradient-to-b from-[#0a121c] via-[#0b1410] to-[#070b12] px-4">
-          <div role="alert" className="relative z-10 w-full max-w-xl">
+          <main id="main-content" role="alert" className="relative z-10 w-full max-w-xl">
             <div className="search-modal-panel overflow-hidden p-5 shadow-2xl">
               <h1 className="text-xl font-semibold text-white">
                 Couldn&apos;t load weather
@@ -85,7 +85,7 @@ export default async function HomePage({ searchParams }: PageProps) {
             <div className="mt-3">
               <LocationSearch current={DEFAULT_LOCATION} layout="standalone" />
             </div>
-          </div>
+          </main>
         </div>
       </>
     );

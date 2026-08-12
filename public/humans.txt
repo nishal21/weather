@@ -5,13 +5,14 @@ Repository: https://github.com/nishal21/weather
 
 /* SITE */
 Name: India Weather
+Purpose: Live weather for India and worldwide cities
 Stack: Next.js, React, TypeScript
 License: MPL-2.0
 
 /* DATA */
-Forecast: Open-Meteo (https://open-meteo.com) — CC BY 4.0
+Forecast: Open-Meteo (https://open-meteo.com) CC BY 4.0
 Geocoding: Open-Meteo Geocoding API
 Reverse geocode: BigDataCloud Client API
 
-/* NOTE */
-Open-source weather app. Source code and project metadata are published in the repository above.
+/* THANKS */
+Weather data providers and open-source tooling that make this site possible.

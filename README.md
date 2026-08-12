@@ -2,32 +2,18 @@
 
 Repository: [github.com/nishal21/weather](https://github.com/nishal21/weather) · License: MPL-2.0
 
-Weather app built in India, made for users everywhere.
-
-It shows live weather, hourly and 7-day forecast, rain, wind, UV, air quality, and simple action tips. The app supports city search worldwide, GPS lookup, saved places, and language-friendly UI.
+Live weather for cities in India and elsewhere. Hourly and 7-day outlook, rain, wind, UV, air quality, city search, GPS, saved places, and language support.
 
 ## What it includes
 
 - Live weather from Open-Meteo
 - World city search (Open-Meteo geocoding)
 - GPS reverse geocoding (BigDataCloud)
-- Weather cards for hourly, 7-day, rain, UV, AQI, and details
-- Localized UI strings (MyMemory + safety filtering)
-- Device language default until user picks a language
-- Compact location URLs like `/?p=lat,lon&n=Name&st=State&f=g`
-- SEO, GEO, and AEO setup:
-  - metadata + canonical
-  - `robots.txt`, `sitemap.xml`, `manifest.webmanifest`
-  - JSON-LD
-  - `public/llms.txt`
-
-
-
-## Stack
-
-- Next.js 16
-- React 19
-- TypeScript
+- Cards for hourly, 7-day, rain, UV, AQI, and details
+- UI strings translated online (MyMemory, with sanitizing)
+- Device language by default until you pick one
+- Compact URLs like `/?p=lat,lon&n=Name&st=State&f=g`
+- SEO / GEO / AEO: metadata, robots, sitemap, manifest, JSON-LD, `llms.txt`, FAQ
 
 
 

@@ -135,7 +135,7 @@ export function WeatherAppScreen({
           aria-hidden
         />
 
-        <div className="relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col px-5 pt-[max(1.1rem,env(safe-area-inset-top))] sm:px-8 sm:pt-6 lg:px-10">
+        <header className="relative z-10 mx-auto flex min-h-0 w-full max-w-5xl flex-1 flex-col px-5 pt-[max(1.1rem,env(safe-area-inset-top))] sm:px-8 sm:pt-6 lg:px-10">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0 pr-2">
               <h1 className="hero-place-title truncate">{location.name}</h1>
@@ -205,15 +205,18 @@ export function WeatherAppScreen({
 
           {/* Lower hero: ridge and character */}
           <div className="min-h-[clamp(16rem,42dvh,28rem)] flex-1 sm:min-h-[clamp(18rem,44dvh,32rem)]" />
-        </div>
+        </header>
       </section>
 
       {/* Content bed: phone stack on mobile, multi-column on desktop */}
       <div className="relative z-20 -mt-12 bg-gradient-to-b from-transparent via-[#070b12]/88 to-[#070b12] pt-12 sm:-mt-16 sm:pt-16">
-        <main className="relative mx-auto w-full max-w-lg px-4 pb-10 sm:max-w-2xl sm:px-6 md:max-w-4xl md:pb-14 lg:max-w-6xl lg:px-8">
+        <main
+          id="main-content"
+          className="relative mx-auto w-full max-w-lg px-4 pb-10 sm:max-w-2xl sm:px-6 md:max-w-4xl md:pb-14 lg:max-w-6xl lg:px-8"
+        >
           <div className="grid grid-cols-1 gap-3 lg:grid-cols-12 lg:gap-4">
             <GlassCard className="card-rise !py-3.5 lg:col-span-12">
-              <p className="weather-panel-label mb-1">{t("panel.today")}</p>
+              <h2 className="weather-panel-label mb-1">{t("panel.today")}</h2>
               <p className="text-[15px] leading-relaxed text-white/88">
                 {summary}
               </p>

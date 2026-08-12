@@ -1,43 +1,41 @@
 # India Weather
 
-> Live weather for India and cities worldwide. Hourly and 7-day forecast, rain, wind, UV, air quality, and plain-language alerts.
+India Weather shows live weather for India and cities worldwide: temperature, hourly and 7-day outlook, rain, wind, UV, air quality, and short forecast-based alerts.
 
 ## Project
 
 - Name: India Weather
 - Maintainer: nishal21 (https://github.com/nishal21)
-- Source code: https://github.com/nishal21/weather
+- Source: https://github.com/nishal21/weather
 - License: MPL-2.0 (https://www.mozilla.org/MPL/2.0/)
-- Stack: Next.js 16, React 19, TypeScript
+- Built with: Next.js 16, React 19, TypeScript
 
-## Summary
+## What it does
 
-India Weather is a mobile-first open-source weather web app. Search any city, use GPS for local weather, save places, and read forecasts in your language.
+Open the site, search a city or allow GPS, and read the forecast in your language. Saved places stay on the device (up to 8). Alerts come from forecast fields; they are not official IMD bulletins.
 
-## Core features
+## Features
 
-- Hourly and 7-day temperature forecast
-- Rainfall, wind, humidity, pressure, visibility
-- UV index map and air quality index
-- Weather alerts derived from live forecast data (not official IMD bulletins)
-- Worldwide city search via Open-Meteo geocoding
-- GPS reverse geocoding via BigDataCloud
-- 70+ UI languages with device-language default
-- Saved places (up to 8, stored on device)
+- Hourly and 7-day temperature
+- Rain, wind, humidity, pressure, visibility
+- UV index and air quality
+- Worldwide city search (Open-Meteo geocoding)
+- GPS reverse geocode (BigDataCloud)
+- Device language default, with 70+ UI languages
+- Saved places in local storage
 
-## Data sources
+## Data
 
-- Forecast: Open-Meteo (https://open-meteo.com) — CC BY 4.0
+- Forecast: Open-Meteo (https://open-meteo.com), CC BY 4.0
 - Geocoding: Open-Meteo Geocoding API
 - Reverse geocode: BigDataCloud Client API
-- UI translation: MyMemory (free tier, cached)
+- UI translation: MyMemory (cached on the server)
 
 ## Copyright
 
-- Source code: MPL-2.0, copyright India Weather contributors / nishal21
-- Media assets (images, animations, video): may belong to respective owners; see repository README
+Source code is MPL-2.0, copyright nishal21. Images, animations, and video may belong to their respective owners. See the repository README.
 
-## Popular entry points
+## Links
 
 - Home: /
 - Repository: https://github.com/nishal21/weather
@@ -46,13 +44,13 @@ India Weather is a mobile-first open-source weather web app. Search any city, us
 ## FAQ
 
 Q: What is India Weather?
-A: An open-source weather web app for India and global cities with hourly/7-day forecasts and air quality.
+A: A free open-source weather site for India and global cities, with hourly and 7-day forecasts plus air quality.
 
 Q: Who maintains it?
-A: nishal21. Source is published on GitHub under MPL-2.0.
+A: nishal21. The source is on GitHub under MPL-2.0.
 
-Q: Which languages are supported?
-A: English plus 70+ languages. Default follows the user's phone or browser language.
+Q: Which languages work?
+A: English and 70+ others. Default follows the phone or browser when possible.
 
 Q: Are alerts official government warnings?
-A: No. Alerts are generated from forecast data for planning, not IMD official bulletins.
+A: No. They are tips from forecast data, not IMD official bulletins.

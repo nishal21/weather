@@ -30,11 +30,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <head>
         <link rel="llms-txt" href="/llms.txt" />
+        <link rel="author" type="text/plain" href="/humans.txt" />
         <link rel="author" href="https://github.com/nishal21" />
         <link rel="me" href="https://github.com/nishal21" />
         <link rel="license" href="https://www.mozilla.org/MPL/2.0/" />
       </head>
       <body className="min-h-[100dvh] font-sans text-zinc-50">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <JsonLd data={globalJsonLdGraph()} />
         <AppProviders>
           <div className="flex min-h-[100dvh] flex-col">

@@ -1,33 +1,33 @@
-/** FAQ content for AEO / answer engines and FAQPage JSON-LD. */
+/** FAQ for answer engines and FAQPage JSON-LD. Plain answers, no marketing fluff. */
 export const SITE_FAQ = [
   {
     question: "What is India Weather?",
     answer:
-      "India Weather is a free weather app for India and cities worldwide. It shows live temperature, hourly and 7-day forecasts, rain, wind, UV index, air quality, and easy-to-read weather alerts.",
+      "India Weather is a free weather site for India and cities worldwide. It shows current temperature, hourly and 7-day outlooks, rain, wind, UV, air quality, and short alerts based on the forecast.",
   },
   {
-    question: "Which cities does India Weather support?",
+    question: "Which cities can I look up?",
     answer:
-      "You can search any city worldwide. India coverage includes major cities and districts across all states and union territories, from Mumbai and Delhi to Kochi, Guwahati, and Leh.",
+      "Search any city you need. India coverage includes major metros and many districts, including Mumbai, Delhi, Kochi, Guwahati, and Leh.",
   },
   {
-    question: "Where does India Weather get forecast data?",
+    question: "Where does the forecast come from?",
     answer:
-      "Forecasts use Open-Meteo, a free global weather API. Place names use Open-Meteo geocoding and BigDataCloud reverse geocoding. Alerts are derived from live forecast conditions.",
+      "Forecasts come from Open-Meteo. Place search uses Open-Meteo geocoding. GPS place names use BigDataCloud reverse geocoding. Alerts are built from those forecast fields, not from official IMD bulletins.",
   },
   {
-    question: "Does India Weather support Malayalam and Hindi?",
+    question: "Can I use Malayalam, Hindi, or other languages?",
     answer:
-      "Yes. The app follows your phone language by default and lets you pick from 70+ languages. UI text is translated online; place names use localized geocoding where available.",
+      "Yes. The site starts in your phone or browser language when possible. You can switch to 70+ languages. UI labels are translated online. Place names use localized geocoding when the provider supports it.",
   },
   {
-    question: "Can I use GPS to get weather near me?",
+    question: "Can I get weather for my current location?",
     answer:
-      "Yes. Allow location in your browser and the app shows weather for your current area. You can also search manually or pick from saved places.",
+      "Yes. Allow location in the browser and the app loads weather for that spot. You can also search by city or open a saved place.",
   },
   {
-    question: "Are the weather alerts official IMD bulletins?",
+    question: "Are the alerts official IMD warnings?",
     answer:
-      "No. Alerts are generated from forecast data to help you plan your day. They are not official India Meteorological Department warnings.",
+      "No. Alerts are tips derived from the live forecast so you can plan your day. They are not India Meteorological Department colour bulletins.",
   },
 ] as const;

@@ -1,4 +1,4 @@
-export const LOCALE_BUNDLE_VERSION = 4;
+export const LOCALE_BUNDLE_VERSION = 5;
 
 /** English UI source strings — translated at runtime via MyMemory when locale ≠ en. */
 export const UI_SOURCE = {
@@ -18,7 +18,7 @@ export const UI_SOURCE = {
   "search.close": "Close",
   "search.remove": "Remove",
   "search.showingFor": "Showing weather for",
-  "welcome.label": "Welcome",
+  "welcome.label": "India Weather",
   "panel.today": "Today",
   "panel.hourly": "Hourly",
   "panel.daily": "7-day",
@@ -125,7 +125,8 @@ export const UI_SOURCE = {
   "alerts.bePrepared": "Be prepared",
   "alerts.stayUpdated": "Stay updated",
   "welcome.title": "Check the weather",
-  "welcome.sub": "Search any city, or turn on location for weather where you are.",
+  "welcome.sub":
+    "Search any city, or turn on location for conditions where you are.",
   "lang.label": "Language",
   "lang.choose": "Choose language",
   "lang.search": "Search languages",

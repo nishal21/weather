@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { SITE, absoluteUrl } from "./site";
+import { SITE } from "./site";
 import type { LocationRef } from "@/lib/weather/types";
 import { hrefForLocation } from "@/lib/geo/location-url";
 
 const defaultOg = {
-  title: `${SITE.name} – ${SITE.tagline}`,
+  title: `${SITE.name} | ${SITE.tagline}`,
   description:
-    "Built in India. Made for the world. Live forecasts, air quality, and clear weather alerts.",
+    "Live forecasts for India and worldwide cities, with rain, UV, and air quality. Maintained by nishal21.",
   images: [
     {
       url: "/og.jpg",
       width: 1734,
       height: 907,
-      alt: `${SITE.name} – ${SITE.tagline}`,
+      alt: `${SITE.name}: live weather for India and worldwide cities`,
     },
   ],
 };
@@ -20,7 +20,7 @@ const defaultOg = {
 export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} – Live forecast & clear alerts`,
+    default: `${SITE.name} | Live forecast`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -84,7 +84,7 @@ export const rootMetadata: Metadata = {
 
 export function welcomeMetadata(): Metadata {
   return {
-    title: `${SITE.name} – ${SITE.tagline}`,
+    title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
     alternates: { canonical: "/" },
     openGraph: {
@@ -100,7 +100,7 @@ export function locationMetadata(location: LocationRef): Metadata {
     ? `${location.name}, ${location.state}`
     : location.name;
   const title = `Weather in ${placeLine}`;
-  const description = `Live weather in ${placeLine}. Hourly and 7-day forecast, rain, wind, UV, air quality, and alerts.`;
+  const description = `Current conditions in ${placeLine}, plus hourly and 7-day forecast, rain, wind, UV, and air quality.`;
   const path = hrefForLocation(location);
 
   return {
@@ -127,8 +127,7 @@ export function locationMetadata(location: LocationRef): Metadata {
 export function errorMetadata(): Metadata {
   return {
     title: "Weather unavailable",
-    description:
-      "Could not load live weather. Search for your city and try again.",
+    description: "Live weather did not load. Search for your city and try again.",
     robots: { index: false, follow: true },
   };
 }

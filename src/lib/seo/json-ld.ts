@@ -65,12 +65,12 @@ export function webApplicationJsonLd() {
     isAccessibleForFree: true,
     featureList: [
       "Hourly and 7-day forecast",
-      "Worldwide city search",
-      "GPS location weather",
+      "City search worldwide",
+      "GPS weather for your area",
       "Air quality and UV index",
       "Rainfall charts",
-      "Multi-language UI",
-      "Saved places",
+      "UI in many languages",
+      "Saved places on device",
     ],
     screenshot: absoluteUrl("/og.jpg"),
   };
@@ -103,7 +103,7 @@ export function weatherPageJsonLd(
     "@type": "WebPage",
     name: `Weather in ${placeName}`,
     url: pageUrl,
-    description: `${snapshot.current.conditionLabel}. High around ${Math.round(snapshot.forecast7[0]?.maxTempC ?? temp)}°C. ${SITE.name} live forecast.`,
+    description: `${snapshot.current.conditionLabel}. High near ${Math.round(snapshot.forecast7[0]?.maxTempC ?? temp)}°C in ${placeName}. Live forecast from ${SITE.name}.`,
     isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
     about: {
       "@type": "Place",
