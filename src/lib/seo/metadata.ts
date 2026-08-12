@@ -45,7 +45,7 @@ function twitterBase(
 export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} | Live forecast`,
+    default: `${SITE.name} | ${SITE.tagline}`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -72,11 +72,14 @@ export const rootMetadata: Metadata = {
   icons: {
     icon: [
       { url: SITE.logo, type: SITE.logoType, sizes: "500x500" },
-      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+      { url: "/favicon.ico", sizes: "32x32" },
     ],
     shortcut: SITE.logo,
     apple: [{ url: SITE.appleTouchIcon, sizes: "180x180", type: "image/png" }],
   },
+  manifest: "/site.webmanifest",
   openGraph: openGraphBase({ url: "/" }),
   twitter: twitterBase(),
   formatDetection: {

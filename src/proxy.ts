@@ -66,8 +66,13 @@ export function proxy(request: NextRequest) {
         status: 200,
         headers: {
           "Content-Type": "text/html; charset=utf-8",
+          // Edge + durable CDN so repeat OG scans stay under ~200ms after first fill.
           "Cache-Control":
-            "public, s-maxage=3600, stale-while-revalidate=86400",
+            "public, max-age=0, s-maxage=86400, stale-while-revalidate=604800",
+          "CDN-Cache-Control":
+            "public, s-maxage=86400, stale-while-revalidate=604800",
+          "Netlify-CDN-Cache-Control":
+            "public, durable, s-maxage=86400, stale-while-revalidate=604800",
         },
       });
       return withSecurityHeaders(response);

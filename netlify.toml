@@ -40,13 +40,13 @@
     Cache-Control = "public, max-age=604800, must-revalidate"
 
 [[headers]]
-  for = "/logo.png"
+  for = "/favicon-32x32.png"
   [headers.values]
     Cross-Origin-Resource-Policy = "cross-origin"
     Cache-Control = "public, max-age=604800, must-revalidate"
 
 [[headers]]
-  for = "/apple-touch-icon.png"
+  for = "/favicon-16x16.png"
   [headers.values]
     Cross-Origin-Resource-Policy = "cross-origin"
     Cache-Control = "public, max-age=604800, must-revalidate"
@@ -62,6 +62,24 @@
   [headers.values]
     Cross-Origin-Resource-Policy = "cross-origin"
     Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/logo.png"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/apple-touch-icon.png"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=604800, must-revalidate"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "public, max-age=86400"
 
 # Hashed Next assets can be cached hard at the edge.
 [[headers]]
