@@ -24,6 +24,7 @@ import {
   LanguagePickerPanel,
   LanguagePickerRow,
 } from "@/components/i18n/LanguagePicker";
+import { WORLD_QUICK_PICKS } from "@/lib/weather/locations/world-cities";
 
 type Props = {
   current: LocationRef;
@@ -33,18 +34,7 @@ type Props = {
   layout?: "modal" | "inner" | "standalone";
 };
 
-const QUICK_PICKS: LocationRef[] = [
-  { id: "world-dubai", name: "Dubai", state: "Dubai", countryCode: "AE", lat: 25.2048, lon: 55.2708 },
-  { id: "world-singapore", name: "Singapore", state: "Singapore", countryCode: "SG", lat: 1.3521, lon: 103.8198 },
-  { id: "world-london", name: "London", state: "England", countryCode: "GB", lat: 51.5072, lon: -0.1276 },
-  { id: "world-newyork", name: "New York", state: "New York", countryCode: "US", lat: 40.7128, lon: -74.006 },
-  { id: "world-tokyo", name: "Tokyo", state: "Tokyo", countryCode: "JP", lat: 35.6762, lon: 139.6503 },
-  { id: "world-sydney", name: "Sydney", state: "NSW", countryCode: "AU", lat: -33.8688, lon: 151.2093 },
-  { id: "world-berlin", name: "Berlin", state: "Berlin", countryCode: "DE", lat: 52.52, lon: 13.405 },
-  { id: "world-toronto", name: "Toronto", state: "Ontario", countryCode: "CA", lat: 43.6532, lon: -79.3832 },
-  { id: "world-paris", name: "Paris", state: "Île-de-France", countryCode: "FR", lat: 48.8566, lon: 2.3522 },
-  { id: "world-mumbai", name: "Mumbai", state: "Maharashtra", countryCode: "IN", lat: 19.076, lon: 72.8777 },
-];
+const QUICK_PICKS: LocationRef[] = WORLD_QUICK_PICKS;
 
 function placeSubtitle(loc: LocationRef): string {
   return [loc.state, loc.countryCode].filter(Boolean).join(" · ");

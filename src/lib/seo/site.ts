@@ -16,7 +16,8 @@ export const SITE = {
   maintainerUrl: "https://github.com/nishal21",
   license: "MPL-2.0",
   licenseUrl: "https://www.mozilla.org/MPL/2.0/",
-  twitter: "@indiaweather",
+  twitter: "@Etainment2",
+  themeColor: "#070b12",
   /** App mark in public/ — SVG scales cleanly for favicon and UI. */
   logo: "/logo.svg",
   keywords: [

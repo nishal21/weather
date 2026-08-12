@@ -9,8 +9,8 @@ const SOCIAL_DESCRIPTION =
 
 const OG_IMAGE = {
   url: absoluteUrl("/og.jpg"),
-  width: 1024,
-  height: 535,
+  width: 1200,
+  height: 630,
   alt: `${SITE.name}: live weather for India and worldwide cities`,
   type: "image/jpeg",
 } as const;
@@ -40,6 +40,8 @@ function twitterBase(
 ): NonNullable<Metadata["twitter"]> {
   return {
     card: "summary_large_image",
+    site: SITE.twitter,
+    creator: SITE.twitter,
     title: defaultOg.title,
     description: defaultOg.description,
     images: [OG_IMAGE.url],
@@ -79,6 +81,7 @@ export const rootMetadata: Metadata = {
     shortcut: SITE.logo,
     apple: SITE.logo,
   },
+  themeColor: SITE.themeColor,
   openGraph: openGraphBase({ url: "/" }),
   twitter: twitterBase(),
   formatDetection: {
