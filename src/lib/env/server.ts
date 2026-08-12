@@ -19,9 +19,8 @@ export const serverEnv = {
   /** Optional future IMD or other paid weather keys — server only. */
   imdApiKey: readEnv("IMD_API_KEY"),
   siteUrl: readEnv("NEXT_PUBLIC_SITE_URL")?.replace(/\/$/, ""),
-  nodeEnv: process.env.NODE_ENV ?? "development",
 } as const;
 
 export function isProduction(): boolean {
-  return serverEnv.nodeEnv === "production";
+  return process.env.NODE_ENV === "production";
 }

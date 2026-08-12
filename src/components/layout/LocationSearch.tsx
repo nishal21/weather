@@ -198,7 +198,9 @@ export function LocationSearch({ current, onClose, layout }: Props) {
     />
   ) : (
     <>
-      <div
+      <form
+        role="search"
+        onSubmit={(e) => e.preventDefault()}
         className={
           isGlass
             ? "flex items-center gap-2.5 border-b border-white/10 bg-white/[0.03] px-4 py-3.5"
@@ -216,6 +218,7 @@ export function LocationSearch({ current, onClose, layout }: Props) {
         <input
           ref={inputRef}
           id="place-search"
+          type="search"
           role="combobox"
           aria-expanded={isSearching}
           aria-controls={listId}
@@ -223,8 +226,10 @@ export function LocationSearch({ current, onClose, layout }: Props) {
           className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/40"
           placeholder={t("search.placeholder")}
           value={query}
+          maxLength={80}
           onChange={(e) => setQuery(e.target.value)}
           autoComplete="off"
+          enterKeyHint="search"
         />
         {(loading || pending) && (
           <SpinnerGap
@@ -242,7 +247,7 @@ export function LocationSearch({ current, onClose, layout }: Props) {
             <X className="size-4" weight="bold" />
           </button>
         ) : null}
-      </div>
+      </form>
 
       <div
         className={

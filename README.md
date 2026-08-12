@@ -76,6 +76,12 @@ npm run build
 
 
 
+## Security notes
+
+Production responses send Content-Security-Policy, HSTS (`includeSubDomains` and `preload`), COOP, and CORP. API routes check the caller origin and keep keys on the server.
+
+City and language search fields cap length. JSON-LD is escaped before it is injected.
+
 ## License
 
 Source code in this repository is licensed under the [Mozilla Public License 2.0](LICENSE) (MPL-2.0).
@@ -89,4 +95,3 @@ Copyright for the project source code is held by [nishal21](https://github.com/n
 Images, animations, icons, videos, fonts, and other media in this project may belong to their respective owners and are not necessarily covered by MPL-2.0. Use or redistribution of those assets may require separate permission or license from the original rights holders.
 
 Third-party data and services (Open-Meteo, BigDataCloud, MyMemory, and others) remain subject to their own terms and attribution requirements.
-

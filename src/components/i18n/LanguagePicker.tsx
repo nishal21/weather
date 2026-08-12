@@ -150,24 +150,34 @@ export function LanguagePickerPanel({ onBack, onClose }: PanelProps) {
         ) : null}
       </div>
 
-      <div className="border-b border-white/[0.06] px-4 py-3">
+      <form
+        role="search"
+        onSubmit={(e) => e.preventDefault()}
+        className="border-b border-white/[0.06] px-4 py-3"
+      >
         <div className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5">
           <MagnifyingGlass
             className="size-4 shrink-0 text-white/40"
             weight="bold"
             aria-hidden
           />
+          <label className="sr-only" htmlFor="language-search">
+            Search languages
+          </label>
           <input
+            id="language-search"
             type="search"
             className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-white/35"
             placeholder={t("lang.search")}
             value={query}
+            maxLength={40}
             onChange={(e) => setQuery(e.target.value)}
             autoComplete="off"
             autoFocus
+            enterKeyHint="search"
           />
         </div>
-      </div>
+      </form>
 
       <div className="search-modal-scroll min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-2 py-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <PickerRow
