@@ -8,7 +8,8 @@ const SOCIAL_DESCRIPTION =
   "Live weather for India and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
 
 const OG_IMAGE = {
-  url: absoluteUrl("/og.jpg"),
+  // New path so CDNs / LinkedIn do not keep the old 1024x535 /og.jpg.
+  url: absoluteUrl("/opengraph.jpg"),
   width: 1200,
   height: 630,
   alt: `${SITE.name}: live weather for India and worldwide cities`,
@@ -81,7 +82,6 @@ export const rootMetadata: Metadata = {
     shortcut: SITE.logo,
     apple: SITE.logo,
   },
-  themeColor: SITE.themeColor,
   openGraph: openGraphBase({ url: "/" }),
   twitter: twitterBase(),
   formatDetection: {

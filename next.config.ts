@@ -41,6 +41,10 @@ const nextConfig: NextConfig = {
         headers: shareImageHeaders,
       },
       {
+        source: "/opengraph.jpg",
+        headers: shareImageHeaders,
+      },
+      {
         source: "/logo.svg",
         headers: shareImageHeaders,
       },

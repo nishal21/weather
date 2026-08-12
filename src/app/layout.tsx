@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, IBM_Plex_Sans } from "next/font/google";
 import { AppProviders } from "@/components/providers/AppProviders";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { rootMetadata } from "@/lib/seo/metadata";
 import { globalJsonLdGraph } from "@/lib/seo/json-ld";
+import { SITE } from "@/lib/seo/site";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -21,6 +22,14 @@ const plex = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = rootMetadata;
+
+/** theme-color must live on viewport in Next.js 14+ (metadata.themeColor is ignored). */
+export const viewport: Viewport = {
+  themeColor: SITE.themeColor,
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark",
+};
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
