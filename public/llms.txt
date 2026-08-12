@@ -1,0 +1,45 @@
+# India Weather
+
+> Live weather for India and cities worldwide. Hourly and 7-day forecast, rain, wind, UV, air quality, and plain-language alerts.
+
+## Summary
+
+India Weather is a mobile-first web app built in India for users everywhere. Search any city, use GPS for local weather, save places, and read forecasts in your language.
+
+## Core features
+
+- Hourly and 7-day temperature forecast
+- Rainfall, wind, humidity, pressure, visibility
+- UV index map and air quality index
+- Weather alerts derived from live forecast data (not official IMD bulletins)
+- Worldwide city search via Open-Meteo geocoding
+- GPS reverse geocoding via BigDataCloud
+- 70+ UI languages with device-language default
+- Saved places (up to 8, stored on device)
+
+## Data sources
+
+- Forecast: Open-Meteo (https://open-meteo.com)
+- Geocoding: Open-Meteo Geocoding API
+- Reverse geocode: BigDataCloud Client API
+- UI translation: MyMemory (free tier, cached)
+
+## Popular entry points
+
+- Home: /
+- Example cities: Mumbai, Delhi, Bengaluru, Chennai, Kolkata, Hyderabad, Kochi, Thiruvananthapuram
+
+## FAQ
+
+Q: What is India Weather?
+A: A free weather web app for India and global cities with hourly/7-day forecasts and air quality.
+
+Q: Which languages are supported?
+A: English plus 70+ languages. Default follows the user's phone or browser language.
+
+Q: Are alerts official government warnings?
+A: No. Alerts are generated from forecast data for planning, not IMD official bulletins.
+
+## Contact / updates
+
+Set production URL in NEXT_PUBLIC_SITE_URL when deploying.

@@ -1,0 +1,132 @@
+import { SITE, absoluteUrl } from "./site";
+import { SITE_FAQ } from "./faq";
+import type { LocationRef } from "@/lib/weather/types";
+import type { WeatherSnapshot } from "@/lib/weather/types";
+import { hrefForLocation } from "@/lib/geo/location-url";
+
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+    logo: absoluteUrl("/logo.png"),
+    description: SITE.description,
+    areaServed: [
+      { "@type": "Country", name: "India" },
+      { "@type": "Place", name: "World" },
+    ],
+  };
+}
+
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    inLanguage: ["en-IN", "ml-IN", "hi-IN"],
+    publisher: { "@type": "Organization", name: SITE.name },
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE.url}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+export function webApplicationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: SITE.name,
+    url: SITE.url,
+    applicationCategory: "WeatherApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "INR" },
+    description: SITE.description,
+    featureList: [
+      "Hourly and 7-day forecast",
+      "Worldwide city search",
+      "GPS location weather",
+      "Air quality and UV index",
+      "Rainfall charts",
+      "Multi-language UI",
+      "Saved places",
+    ],
+    screenshot: absoluteUrl("/og.jpg"),
+  };
+}
+
+export function faqPageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: SITE_FAQ.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  };
+}
+
+export function weatherPageJsonLd(
+  location: LocationRef,
+  snapshot: WeatherSnapshot,
+) {
+  const placeName = location.state
+    ? `${location.name}, ${location.state}`
+    : location.name;
+  const pageUrl = absoluteUrl(hrefForLocation(location));
+  const temp = Math.round(snapshot.current.temperatureC);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: `Weather in ${placeName}`,
+    url: pageUrl,
+    description: `${snapshot.current.conditionLabel}. High around ${Math.round(snapshot.forecast7[0]?.maxTempC ?? temp)}°C. ${SITE.name} live forecast.`,
+    isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+    about: {
+      "@type": "Place",
+      name: location.name,
+      address: {
+        "@type": "PostalAddress",
+        addressRegion: location.state || undefined,
+        addressCountry: location.countryCode || "IN",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: location.lat,
+        longitude: location.lon,
+      },
+    },
+    mainEntity: {
+      "@type": "Observation",
+      name: `Current weather in ${placeName}`,
+      observationDate: snapshot.current.observedAt,
+      measuredProperty: {
+        "@type": "PropertyValue",
+        name: "Temperature",
+        value: temp,
+        unitCode: "CEL",
+      },
+    },
+  };
+}
+
+export function globalJsonLdGraph() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      organizationJsonLd(),
+      websiteJsonLd(),
+      webApplicationJsonLd(),
+      faqPageJsonLd(),
+    ],
+  };
+}

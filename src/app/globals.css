@@ -1,26 +1,803 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #070b12;
+  --foreground: #eef3f8;
+  --accent: #38bdf8;
+  --accent-deep: #0ea5e9;
+  --panel: rgb(255 255 255 / 0.08);
+  --panel-border: rgb(255 255 255 / 0.1);
+  --panel-radius: 1.5rem;
+  --panel-pad: 1.1rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-accent: var(--accent);
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display-face), var(--font-body), ui-sans-serif, sans-serif;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+html.search-modal-open,
+body.search-modal-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 45%, transparent);
+  color: white;
+}
+
+@keyframes card-rise {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .card-rise {
+    animation: card-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .card-rise:nth-child(1) {
+    animation-delay: 0.03s;
+  }
+  .card-rise:nth-child(2) {
+    animation-delay: 0.07s;
+  }
+  .card-rise:nth-child(3) {
+    animation-delay: 0.11s;
+  }
+  .card-rise:nth-child(4) {
+    animation-delay: 0.15s;
+  }
+  .card-rise:nth-child(5) {
+    animation-delay: 0.19s;
+  }
+  .card-rise:nth-child(6) {
+    animation-delay: 0.23s;
+  }
+}
+
+/* One UI post-hero panel — single glass system, sky-tinted neutrals */
+.weather-panel {
+  border-radius: var(--panel-radius);
+  border: 1px solid var(--panel-border);
+  background:
+    linear-gradient(
+      165deg,
+      rgb(56 189 248 / 0.06) 0%,
+      rgb(255 255 255 / 0.07) 42%,
+      rgb(255 255 255 / 0.045) 100%
+    );
+  padding: var(--panel-pad);
+  color: var(--foreground);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.1),
+    0 10px 32px rgb(0 0 0 / 0.22);
+  backdrop-filter: blur(28px) saturate(140%);
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+}
+
+@media (min-width: 640px) {
+  .weather-panel {
+    --panel-radius: 1.625rem;
+    --panel-pad: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .weather-panel {
+    background: rgb(18 24 34 / 0.96);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.weather-panel-label {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: rgb(238 243 248 / 0.5);
+}
+
+/* Search modal — same glass language as weather panels, slightly lighter for overlay */
+.search-modal-panel {
+  border-radius: var(--panel-radius);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background:
+    linear-gradient(
+      168deg,
+      rgb(56 189 248 / 0.1) 0%,
+      rgb(255 255 255 / 0.1) 38%,
+      rgb(7 11 18 / 0.55) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 24px 48px rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(32px) saturate(150%);
+  -webkit-backdrop-filter: blur(32px) saturate(150%);
+}
+
+.search-modal-scroll {
+  max-height: min(52vh, 28rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+.search-modal-scroll::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+  display: none !important;
+  background: transparent;
+}
+
+.search-modal-scroll::-webkit-scrollbar-thumb,
+.search-modal-scroll::-webkit-scrollbar-track {
+  display: none !important;
+}
+
+.search-modal-row:hover,
+.search-modal-row:focus-visible {
+  background: rgb(56 189 248 / 0.08);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .search-modal-panel {
+    background: rgb(18 24 34 / 0.94);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.temp-range-track {
+  position: relative;
+  height: 0.28rem;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.12);
+  overflow: hidden;
+}
+
+.temp-range-fill {
+  position: absolute;
+  inset-block: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--accent) 75%, white),
+    #fde68a 55%,
+    #fb923c
+  );
+}
+
+/* Hero condition icon — Samsung One UI scale (soft, upper-right) */
+.hero-lottie {
+  position: relative;
+  z-index: 2;
+  width: clamp(6.75rem, 28vw, 9.5rem);
+  height: clamp(6.75rem, 28vw, 9.5rem);
+  margin-top: 0.35rem;
+  margin-right: -0.25rem;
+  overflow: hidden;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
+}
+
+.hero-lottie::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgb(255 255 255 / 0.22) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+@media (min-width: 640px) {
+  .hero-lottie {
+    width: clamp(8.5rem, 14vw, 11.5rem);
+    height: clamp(8.5rem, 14vw, 11.5rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero-lottie {
+    width: clamp(9.5rem, 11vw, 12.5rem);
+    height: clamp(9.5rem, 11vw, 12.5rem);
+  }
+}
+
+/* —— Immersive weather scene —— */
+
+.weather-scene {
+  container: weather-scene / inline-size;
+  isolation: isolate;
+}
+
+.weather-scene--immersive {
+  min-height: 100%;
+}
+
+.ws-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    180deg,
+    var(--sky-top) 0%,
+    var(--sky-mid) 48%,
+    var(--sky-bot) 100%
+  );
+}
+
+/* Volumetric cloud canvas (WebGL) */
+.ws-cloud-canvas {
+  position: absolute;
+  inset: 0 0 28% 0;
+  z-index: 4;
+  width: 100%;
+  pointer-events: none;
+}
+
+.ws-scene-layers {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.ws-scene-layers--ready {
+  opacity: 1;
+}
+
+.ws-scene-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.ws-scene-veil--gone {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0s linear 0.4s;
+}
+
+.ws-sky-video-wrap {
+  position: absolute;
+  inset: 0 0 36% 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ws-sky-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.42;
+  mix-blend-mode: soft-light;
+  filter: saturate(0.9) brightness(0.9);
+}
+
+.ws-sky-video-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgb(0 0 0 / 0.18) 0%,
+    transparent 42%,
+    rgb(0 0 0 / 0.35) 100%
+  );
+}
+
+.ws-orb {
+  position: absolute;
+  z-index: 2;
+  top: 8%;
+  right: 12%;
+  aspect-ratio: 1;
+  border-radius: 9999px;
+  filter: blur(56px);
+  pointer-events: none;
+  opacity: 0.55;
+}
+
+.ws-orb--day {
+  background: rgba(254, 243, 199, 0.5);
+}
+
+.ws-orb--night {
+  background: rgba(226, 232, 240, 0.16);
+}
+
+/*
+ * Land plates are ultra-wide (≈10:1). Use cover so they FILL the band,
+ * not a thin sticker from background-size: auto.
+ */
+.ws-land {
+  position: absolute;
+  inset-inline: 0;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.ws-land--far {
+  bottom: 0;
+  z-index: 3;
+  height: 48%;
+  opacity: 0.95;
+  filter: saturate(1.08) brightness(1.04);
+  background-position: center 48%;
+}
+
+.ws-land--near {
+  bottom: 0;
+  z-index: 5;
+  height: 28%;
+  opacity: 1;
+  filter: saturate(1.14) brightness(0.98);
+  background-position: center 72%;
+  min-height: 6.5rem;
+}
+
+/* Character mid-right on ridge, facing left (toward weather text) */
+.ws-human {
+  position: absolute;
+  z-index: 6;
+  left: auto;
+  right: 14%;
+  bottom: 10%;
+  width: clamp(6.75rem, 26vw, 9.5rem);
+  height: clamp(10.25rem, 38vw, 14.5rem);
+  filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.38));
+}
+
+/* Come from the right once, then stay */
+.ws-human--enter {
+  animation: walker-enter-from-right 2.6s cubic-bezier(0.22, 1, 0.32, 1) forwards;
+}
+
+.ws-human-media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+.ws-human-sprite {
+  width: 100%;
+  height: 100%;
+  background-image: var(--hs-sheet);
+  background-repeat: no-repeat;
+  background-position: 0% 100%;
+  background-size: 3600% 100%; /* 36 frames */
+  animation: ws-human-play 2.6s steps(35) forwards;
+}
+
+.ws-human-sprite--settled {
+  animation: none;
+  background-position: 100% 100%;
+}
+
+@keyframes ws-human-play {
+  to {
+    background-position: 100% 100%;
+  }
+}
+
+/* Hero type stack — Samsung One UI rhythm */
+.hero-place-title {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.4);
+}
+
+.hero-place-sub {
+  margin: 0.15rem 0 0;
+  font-size: 0.75rem;
+  font-weight: 450;
+  letter-spacing: 0.01em;
+  color: rgb(255 255 255 / 0.62);
+}
+
+.hero-temp {
+  margin: 0.15rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 13vw, 6.75rem);
+  font-weight: 700;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  color: #fff;
+  text-shadow: 0 2px 14px rgb(0 0 0 / 0.32);
+}
+
+.hero-temp-unit {
+  font-size: 0.42em;
+  font-weight: 600;
+  vertical-align: super;
+  margin-left: 0.01em;
+}
+
+.hero-condition {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+  font-weight: 600;
+  line-height: 1.2;
+  color: rgb(255 255 255 / 0.96);
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.3);
+}
+
+.hero-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.45rem;
+  margin: 0.4rem 0 0;
+  max-width: 22rem;
+  font-size: clamp(0.72rem, 1.5vw, 0.8125rem);
+  font-weight: 500;
+  line-height: 1.35;
+  color: rgb(255 255 255 / 0.68);
+}
+
+.hero-details-sep {
+  opacity: 0.4;
+  user-select: none;
+}
+
+.hero-now {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 0.5rem 1rem;
+  margin-top: 0.35rem;
+}
+
+@media (min-width: 640px) {
+  .hero-now {
+    gap: 0.75rem 1.75rem;
+    margin-top: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ws-human--enter,
+  .ws-human-sprite {
+    animation: none !important;
+  }
+
+  .ws-human-sprite {
+    background-position: 100% 100%;
+  }
+
+  .ws-sky-video-wrap {
+    display: none;
+  }
+}
+
+.ws-fade {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 7;
+  height: 34%;
+  background: linear-gradient(
+    to top,
+    #070b12 0%,
+    rgba(7, 11, 18, 0.72) 42%,
+    transparent 100%
+  );
+}
+
+@media (min-width: 640px) {
+  .ws-human {
+    left: auto;
+    right: 22%;
+    bottom: 13%;
+    width: clamp(6.5rem, 12vw, 9.5rem);
+    height: clamp(10rem, 20vw, 14.5rem);
+  }
+
+  .ws-land--far {
+    height: 46%;
+  }
+
+  .ws-land--near {
+    height: 28%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ws-human {
+    left: auto;
+    right: 24%;
+    bottom: 14%;
+    width: clamp(7rem, 9vw, 10rem);
+    height: clamp(11rem, 15vw, 15.5rem);
+  }
+
+  .ws-land--far {
+    height: 48%;
+  }
+
+  .ws-land--near {
+    height: 30%;
+  }
+}
+
+@media (max-width: 639px) {
+  .ws-human {
+    right: 11%;
+    bottom: 9%;
+    width: clamp(7.25rem, 30vw, 10rem);
+    height: clamp(11rem, 44vw, 15rem);
+  }
+}
+
+@media (max-width: 420px) {
+  .ws-human {
+    right: 8%;
+    bottom: 8%;
+    width: clamp(7.5rem, 34vw, 9.5rem);
+    height: clamp(11.5rem, 48vw, 14.5rem);
+  }
+}
+
+@keyframes walker-enter-from-right {
+  0% {
+    transform: translateX(140%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes ws-far-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-1.2%);
+  }
+}
+
+@keyframes ws-cloud-drift {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(18px);
+  }
+}
+
+/* —— Walking character (enter → loopStartTime idle) —— */
+
+@keyframes walker-enter {
+  0% {
+    transform: translateX(-130%);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes walker-leg-a {
+  0%,
+  100% {
+    transform: rotate(18deg);
+  }
+  50% {
+    transform: rotate(-22deg);
+  }
+}
+
+@keyframes walker-leg-b {
+  0%,
+  100% {
+    transform: rotate(-20deg);
+  }
+  50% {
+    transform: rotate(18deg);
+  }
+}
+
+@keyframes walker-arm-a {
+  0%,
+  100% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(16deg);
+  }
+}
+
+@keyframes walker-arm-b {
+  0%,
+  100% {
+    transform: rotate(16deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes walker-idle {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+@keyframes walker-cloak {
+  0%,
+  100% {
+    transform: skewX(0deg);
+  }
+  50% {
+    transform: skewX(-4deg);
+  }
+}
+
+@keyframes walker-umbrella {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.scene-walker {
+  height: 100%;
+  width: 100%;
+  /* ~1.8s enter ≈ Samsung loopStartTime handoff */
+  animation: walker-enter 1.85s cubic-bezier(0.22, 1, 0.32, 1) forwards;
+  will-change: transform;
+}
+
+.scene-walker-svg {
+  display: block;
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  margin-inline: auto;
+  overflow: visible;
+}
+
+.scene-walker .walker-rig {
+  animation: walker-idle 3.2s ease-in-out 1.9s infinite;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.scene-walker .walker-leg {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+/* Walk cycle only during enter (~1.8s), then freeze → idle */
+.scene-walker .walker-leg-front {
+  animation: walker-leg-a 0.36s ease-in-out 5 alternate;
+}
+
+.scene-walker .walker-leg-back {
+  animation: walker-leg-b 0.36s ease-in-out 5 alternate;
+}
+
+.scene-walker .walker-arm {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+.scene-walker .walker-arm-front {
+  animation: walker-arm-a 0.36s ease-in-out 5 alternate;
+}
+
+.scene-walker .walker-arm-back {
+  animation: walker-arm-b 0.36s ease-in-out 5 alternate;
+}
+
+.scene-walker .walker-cloak {
+  transform-box: fill-box;
+  transform-origin: top center;
+  animation: walker-cloak 2.6s ease-in-out 1.9s infinite;
+}
+
+.scene-walker .walker-umbrella {
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
+  animation: walker-umbrella 1.5s ease-in-out 1.9s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-rise,
+  .ws-land--far,
+  .ws-human--enter,
+  .ws-human-sprite,
+  .scene-walker,
+  .scene-walker .walker-rig,
+  .scene-walker .walker-leg-front,
+  .scene-walker .walker-leg-back,
+  .scene-walker .walker-arm-front,
+  .scene-walker .walker-arm-back,
+  .scene-walker .walker-cloak,
+  .scene-walker .walker-umbrella {
+    animation: none !important;
+  }
+
+  .card-rise,
+  .ws-human--enter,
+  .scene-walker {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
