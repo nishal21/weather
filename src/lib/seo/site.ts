@@ -38,3 +38,11 @@ export function absoluteUrl(path = "/"): string {
   if (path.startsWith("http")) return path;
   return `${SITE.url}${path.startsWith("/") ? path : `/${path}`}`;
 }
+
+/** Next.js writes sitemap `<loc>` as-is. Query `&` must be `&amp;` or XML parsers fail. */
+export function sitemapLoc(path = "/"): string {
+  return absoluteUrl(path)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
