@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
-import { WeatherAppScreen } from "@/components/weather/WeatherAppScreen";
+import { Suspense } from "react";
 import { AutoLocate } from "@/components/geo/AutoLocate";
-import { LocatingScreen } from "@/components/geo/LocatingScreen";
 import { LocationSearch } from "@/components/layout/LocationSearch";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { fetchWeatherSnapshot } from "@/lib/weather/provider";
@@ -10,12 +8,10 @@ import { deriveAlerts } from "@/lib/weather/derive-alerts";
 import { DEFAULT_LOCATION } from "@/lib/weather/locations/india-cities";
 import {
   hasPlaceInQuery,
-  hrefForLocation,
   isNearYouQuery,
   locationRefFromQuery,
   type LocationQueryParams,
 } from "@/lib/geo/location-url";
-import { readLastPlaceCookie } from "@/lib/geo/last-place-server";
 import { getServerLocale } from "@/lib/i18n/server";
 import {
   localizeAlertsCopy,
@@ -26,7 +22,6 @@ import {
   welcomeMetadata,
 } from "@/lib/seo/metadata";
 import { weatherPageJsonLd } from "@/lib/seo/json-ld";
-import { Suspense } from "react";
 
 type PageProps = {
   searchParams: Promise<LocationQueryParams>;
@@ -48,17 +43,16 @@ export async function generateMetadata({
 
 export default async function HomePage({ searchParams }: PageProps) {
   const params = await searchParams;
-  const locale = await getServerLocale();
   const nearYou = isNearYouQuery(params);
   const hasPlace = hasPlaceInQuery(params);
 
+  // Welcome path: no cookies()/headers() here. Last-place redirect lives in proxy.
   if (!hasPlace) {
-    const cached = await readLastPlaceCookie();
-    if (cached) {
-      redirect(hrefForLocation(cached, { from: "saved" }));
-    }
+    const { LocatingScreen } = await import("@/components/geo/LocatingScreen");
     return <LocatingScreen />;
   }
+
+  const locale = await getServerLocale();
 
   let snapshot;
   let error: string | null = null;
@@ -92,12 +86,11 @@ export default async function HomePage({ searchParams }: PageProps) {
   }
 
   const derived = deriveAlerts(snapshot);
-  const localized = await localizeAlertsCopy(
-    derived.alerts,
-    derived.tips,
-    locale,
-  );
-  const todaySummary = await localizeDaySummaryText(snapshot, locale);
+  const [localized, todaySummary, { WeatherAppScreen }] = await Promise.all([
+    localizeAlertsCopy(derived.alerts, derived.tips, locale),
+    localizeDaySummaryText(snapshot, locale),
+    import("@/components/weather/WeatherAppScreen"),
+  ]);
 
   return (
     <>

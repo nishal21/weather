@@ -4,7 +4,7 @@ import { AppProviders } from "@/components/providers/AppProviders";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { rootMetadata } from "@/lib/seo/metadata";
-import { globalJsonLdGraph } from "@/lib/seo/json-ld";
+import { GLOBAL_JSON_LD } from "@/lib/seo/json-ld";
 import { SITE } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -48,7 +48,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main-content" className="skip-link">
           Skip to content
         </a>
-        <JsonLd data={globalJsonLdGraph()} />
+        <JsonLd data={GLOBAL_JSON_LD} />
         <AppProviders>
           <div className="flex min-h-[100dvh] flex-col">
             {children}

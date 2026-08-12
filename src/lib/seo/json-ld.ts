@@ -144,3 +144,7 @@ export function globalJsonLdGraph() {
     ],
   };
 }
+
+/** Built once at module load so layout does not rebuild the graph every request. */
+export const GLOBAL_JSON_LD = globalJsonLdGraph();
+
