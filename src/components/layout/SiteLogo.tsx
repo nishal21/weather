@@ -6,7 +6,7 @@ type Props = {
   height?: number;
 };
 
-/** Brand mark from public/logo.svg */
+/** Brand mark from public/logo.svg (versioned via SITE.logo). */
 export function SiteLogo({ className, width = 72, height = 72 }: Props) {
   return (
     <img

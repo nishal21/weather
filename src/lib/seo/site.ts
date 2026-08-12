@@ -18,8 +18,8 @@ export const SITE = {
   licenseUrl: "https://www.mozilla.org/MPL/2.0/",
   twitter: "@Etainment2",
   themeColor: "#070b12",
-  /** App mark in public/ — SVG scales cleanly for favicon and UI. */
-  logo: "/logo.svg",
+  /** App mark. Query bumps when the file changes so CDN/browser drop stale /logo.svg. */
+  logo: "/logo.svg?v=2",
   keywords: [
     "India weather",
     "weather forecast India",
