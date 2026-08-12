@@ -10,7 +10,7 @@ export function organizationJsonLd() {
     "@type": "Organization",
     name: SITE.name,
     url: SITE.url,
-    logo: absoluteUrl("/logo.png"),
+    logo: absoluteUrl(SITE.logo),
     description: SITE.description,
     founder: {
       "@type": "Person",

@@ -17,6 +17,8 @@ export const SITE = {
   license: "MPL-2.0",
   licenseUrl: "https://www.mozilla.org/MPL/2.0/",
   twitter: "@indiaweather",
+  /** App mark in public/ — SVG scales cleanly for favicon and UI. */
+  logo: "/logo.svg",
   keywords: [
     "India weather",
     "weather forecast India",

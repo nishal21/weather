@@ -2,7 +2,9 @@
   command = "npm run build"
 
 [build.environment]
-  NODE_ENV = "production"
+  # Do not set NODE_ENV=production here. npm skips devDependencies when it is
+  # set at install time, and Tailwind/PostCSS live in devDependencies.
+  # next build sets NODE_ENV=production during the compile step.
   NEXT_TELEMETRY_DISABLED = "1"
 
 [[headers]]
@@ -17,3 +19,16 @@
     Cross-Origin-Opener-Policy = "same-origin"
     Cross-Origin-Resource-Policy = "same-origin"
     X-DNS-Prefetch-Control = "on"
+
+# Let Discord / Slack / Facebook fetch the share image.
+[[headers]]
+  for = "/og.jpg"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=86400, must-revalidate"
+
+[[headers]]
+  for = "/logo.svg"
+  [headers.values]
+    Cross-Origin-Resource-Policy = "cross-origin"
+    Cache-Control = "public, max-age=86400, must-revalidate"

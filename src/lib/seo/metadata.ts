@@ -1,21 +1,51 @@
 import type { Metadata } from "next";
-import { SITE } from "./site";
+import { SITE, absoluteUrl } from "./site";
 import type { LocationRef } from "@/lib/weather/types";
 import { hrefForLocation } from "@/lib/geo/location-url";
 
+/** Keep social cards under ~125 characters so mobile previews do not cut mid-sentence. */
+const SOCIAL_DESCRIPTION =
+  "Live weather for India and cities worldwide. Hourly and 7-day outlook, rain, UV, and air quality.";
+
+const OG_IMAGE = {
+  url: absoluteUrl("/og.jpg"),
+  width: 1024,
+  height: 535,
+  alt: `${SITE.name}: live weather for India and worldwide cities`,
+  type: "image/jpeg",
+} as const;
+
 const defaultOg = {
   title: `${SITE.name} | ${SITE.tagline}`,
-  description:
-    "Live forecasts for India and worldwide cities, with rain, UV, and air quality. Maintained by nishal21.",
-  images: [
-    {
-      url: "/og.jpg",
-      width: 1734,
-      height: 907,
-      alt: `${SITE.name}: live weather for India and worldwide cities`,
-    },
-  ],
+  description: SOCIAL_DESCRIPTION,
+  images: [OG_IMAGE],
 };
+
+function openGraphBase(
+  overrides: Partial<NonNullable<Metadata["openGraph"]>> = {},
+): NonNullable<Metadata["openGraph"]> {
+  return {
+    type: "website",
+    locale: SITE.locale,
+    siteName: SITE.name,
+    title: defaultOg.title,
+    description: defaultOg.description,
+    images: defaultOg.images,
+    ...overrides,
+  };
+}
+
+function twitterBase(
+  overrides: Partial<NonNullable<Metadata["twitter"]>> = {},
+): NonNullable<Metadata["twitter"]> {
+  return {
+    card: "summary_large_image",
+    title: defaultOg.title,
+    description: defaultOg.description,
+    images: [OG_IMAGE.url],
+    ...overrides,
+  };
+}
 
 export const rootMetadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -45,25 +75,12 @@ export const rootMetadata: Metadata = {
     canonical: "/",
   },
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: [{ url: SITE.logo, type: "image/svg+xml" }],
+    shortcut: SITE.logo,
+    apple: SITE.logo,
   },
-  openGraph: {
-    type: "website",
-    locale: SITE.locale,
-    url: "/",
-    siteName: SITE.name,
-    title: defaultOg.title,
-    description: defaultOg.description,
-    images: defaultOg.images,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: defaultOg.title,
-    description: defaultOg.description,
-    images: ["/og.jpg"],
-  },
+  openGraph: openGraphBase({ url: "/" }),
+  twitter: twitterBase(),
   formatDetection: {
     telephone: false,
     address: false,
@@ -87,11 +104,12 @@ export function welcomeMetadata(): Metadata {
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
     alternates: { canonical: "/" },
-    openGraph: {
+    openGraph: openGraphBase({
       title: defaultOg.title,
-      description: SITE.description,
+      description: SOCIAL_DESCRIPTION,
       url: "/",
-    },
+    }),
+    twitter: twitterBase(),
   };
 }
 
@@ -101,21 +119,25 @@ export function locationMetadata(location: LocationRef): Metadata {
     : location.name;
   const title = `Weather in ${placeLine}`;
   const description = `Current conditions in ${placeLine}, plus hourly and 7-day forecast, rain, wind, UV, and air quality.`;
+  const socialDescription =
+    description.length <= 125
+      ? description
+      : `Weather in ${placeLine}: current, hourly, 7-day, rain, UV, and air quality.`;
   const path = hrefForLocation(location);
 
   return {
     title,
     description,
     alternates: { canonical: path },
-    openGraph: {
+    openGraph: openGraphBase({
       title: `${title} | ${SITE.name}`,
-      description,
+      description: socialDescription,
       url: path,
-    },
-    twitter: {
+    }),
+    twitter: twitterBase({
       title: `${title} | ${SITE.name}`,
-      description,
-    },
+      description: socialDescription,
+    }),
     other: {
       "geo.placename": placeLine,
       "geo.position": `${location.lat};${location.lon}`,
@@ -129,5 +151,13 @@ export function errorMetadata(): Metadata {
     title: "Weather unavailable",
     description: "Live weather did not load. Search for your city and try again.",
     robots: { index: false, follow: true },
+    openGraph: openGraphBase({
+      title: `Weather unavailable | ${SITE.name}`,
+      description: "Live weather did not load. Search for your city and try again.",
+    }),
+    twitter: twitterBase({
+      title: `Weather unavailable | ${SITE.name}`,
+      description: "Live weather did not load. Search for your city and try again.",
+    }),
   };
 }

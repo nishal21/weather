@@ -24,10 +24,25 @@ const nextConfig: NextConfig = {
       });
     }
 
+    const shareImageHeaders = headers
+      .filter(({ key }) => key !== "Cross-Origin-Resource-Policy")
+      .concat({
+        key: "Cross-Origin-Resource-Policy",
+        value: "cross-origin",
+      });
+
     return [
       {
         source: "/:path*",
         headers,
+      },
+      {
+        source: "/og.jpg",
+        headers: shareImageHeaders,
+      },
+      {
+        source: "/logo.svg",
+        headers: shareImageHeaders,
       },
     ];
   },
